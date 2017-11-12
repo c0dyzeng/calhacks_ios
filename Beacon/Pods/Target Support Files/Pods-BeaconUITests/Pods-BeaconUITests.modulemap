@@ -1,0 +1,6 @@
+framework module Pods_BeaconUITests {
+  umbrella header "Pods-BeaconUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
