@@ -72,6 +72,7 @@ class FirstViewController: UIViewController {
 //                    }
                     
                     if let array = dictionary["statuses"] as? [Any] {
+                        // iterate through tweet objects in array to get their text, created at, user, screen name
                         for object in array {
                             if let obj = object as? [String:Any] {
                                 print("TEXT IS \(obj["text"]!)")
@@ -94,11 +95,15 @@ class FirstViewController: UIViewController {
                          print("ARR IS :  \(array)")
 
                     }
+                    
+                    //TODO: delete this hardcoded thing and make it a list of tweets
                     let tweetView = TWTRTweetView()
-                    client.loadTweet(withID: "20") { (tweet, error) in
+                    client.loadTweet(withID: "933775988894208000") { (tweet, error) in
                         if let t = tweet {
                             tweetView.configure(with: t)
-                            self.tweetListSubView.addSubview(tweetView)
+                            tweetView.bounds = self.tweetListSubView.bounds
+                            tweetView.center = self.tweetListSubView.center
+                            self.view.addSubview(tweetView)
                         } else {
                             print("Failed to load Tweet: \(error?.localizedDescription)")
                         }

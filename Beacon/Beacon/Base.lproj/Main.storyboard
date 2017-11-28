@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13189.4" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13165.3"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -17,22 +17,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="rQh-VD-bNi">
-                                <rect key="frame" x="0.0" y="20" width="375" height="272"/>
-                            </mapView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="De3-tT-9JF">
-                                <rect key="frame" x="0.0" y="300" width="375" height="318"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="9rW-4K-nv0">
+                                <rect key="frame" x="0.0" y="20" width="375" height="598"/>
+                                <subviews>
+                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="rQh-VD-bNi">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="299"/>
+                                    </mapView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="De3-tT-9JF">
+                                        <rect key="frame" x="0.0" y="299" width="375" height="299"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="PQr-Ze-W5v" firstAttribute="bottom" secondItem="rQh-VD-bNi" secondAttribute="bottom" constant="300" id="32H-gd-OyE"/>
-                            <constraint firstItem="PQr-Ze-W5v" firstAttribute="trailing" secondItem="rQh-VD-bNi" secondAttribute="trailing" id="5pH-yc-Uwc"/>
-                            <constraint firstItem="rQh-VD-bNi" firstAttribute="top" secondItem="PQr-Ze-W5v" secondAttribute="top" id="9LK-TF-2Vr"/>
-                            <constraint firstItem="rQh-VD-bNi" firstAttribute="leading" secondItem="PQr-Ze-W5v" secondAttribute="leading" id="cYE-Pl-dnJ"/>
-                            <constraint firstItem="rQh-VD-bNi" firstAttribute="centerX" secondItem="PQr-Ze-W5v" secondAttribute="centerX" id="hut-mF-yz9"/>
+                            <constraint firstItem="9rW-4K-nv0" firstAttribute="centerY" secondItem="PQr-Ze-W5v" secondAttribute="centerY" id="4WC-5f-jAx"/>
+                            <constraint firstItem="9rW-4K-nv0" firstAttribute="centerX" secondItem="PQr-Ze-W5v" secondAttribute="centerX" id="RIT-Gh-EJ3"/>
+                            <constraint firstItem="9rW-4K-nv0" firstAttribute="width" secondItem="PQr-Ze-W5v" secondAttribute="width" id="dQm-zL-h0L"/>
+                            <constraint firstItem="9rW-4K-nv0" firstAttribute="height" secondItem="PQr-Ze-W5v" secondAttribute="height" id="pXL-PS-szB"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="PQr-Ze-W5v"/>
                     </view>
