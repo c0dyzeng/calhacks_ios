@@ -1,4 +1,5 @@
 PODS:
+  - Alamofire (4.5.1)
   - Firebase/Core (4.5.0):
     - FirebaseAnalytics (= 4.0.4)
     - FirebaseCore (= 4.0.10)
@@ -44,16 +45,22 @@ PODS:
   - SDWebImage (4.2.1):
     - SDWebImage/Core (= 4.2.1)
   - SDWebImage/Core (4.2.1)
+  - TwitterCore (3.0.2)
+  - TwitterKit (3.2.1):
+    - TwitterCore (>= 3.0.2)
 
 DEPENDENCIES:
+  - Alamofire (~> 4.0)
   - Firebase/Core
   - FirebaseAuth
   - FirebaseDatabase
   - FirebaseStorage
   - MBProgressHUD
   - SDWebImage
+  - TwitterKit
 
 SPEC CHECKSUMS:
+  Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
   Firebase: d83d287bdb6b1c78320561482706d1fcfc8ddfc1
   FirebaseAnalytics: 722b53c7b32bfc7806b06e0093a2f5180d4f2c5a
   FirebaseAuth: e7c2b1359c2df4af23a568100a8eace0b8c507e4
@@ -63,11 +70,13 @@ SPEC CHECKSUMS:
   FirebaseStorage: 0cca42d9b889a0227c3a50121f45a4469fc9eb27
   GoogleToolboxForMac: 2501e2ad72a52eb3dfe7bd9aee7dad11b858bd20
   GTMSessionFetcher: ebaa1f79a5366922c1735f1566901f50beba23b7
-  leveldb-library: 9e29a1d913f922444127a7d0f28b025a0e2ba053
+  leveldb-library: 44ef425bfde64f5b41daef86b38db2d13edbbee1
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   SDWebImage: 1fa4c9edf525b744f002db89f3f5a38b3cd4c541
+  TwitterCore: e0420b01e02e7d20e94690e37f43e75de219ab8d
+  TwitterKit: 205ac89824bbfe9e85a16c420d30bb7bcbedac45
 
-PODFILE CHECKSUM: 627462829e585b5adf185c49151bb890d5eb4c4d
+PODFILE CHECKSUM: 05dae713124ac67ffeebcccca439eb89e23fec70
 
 COCOAPODS: 1.3.1

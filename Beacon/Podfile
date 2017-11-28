@@ -13,6 +13,8 @@ target 'Beacon' do
   pod 'MBProgressHUD'
   pod 'SDWebImage'
   pod 'FirebaseDatabase'
+  pod 'Alamofire', '~> 4.0'
+  pod 'TwitterKit'
 
   target 'BeaconTests' do
     inherit! :search_paths
