@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		096B4A6D1FCD2E8600FD2DBE /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096B4A6C1FCD2E8600FD2DBE /* TableViewController.swift */; };
 		11847AD5D5B740392636B058 /* Pods_BeaconUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17045FBA84B38DFC5451C7EC /* Pods_BeaconUITests.framework */; };
 		254B7A3A684E00EC9D3A134B /* Pods_BeaconTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71B594DCD0CD00C09F5C8DAF /* Pods_BeaconTests.framework */; };
 		2694F9C95D9BA00E8B68D3FF /* Pods_Beacon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2711E5083034DE39981802E1 /* Pods_Beacon.framework */; };
@@ -45,6 +46,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		096B4A6C1FCD2E8600FD2DBE /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		17045FBA84B38DFC5451C7EC /* Pods_BeaconUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BeaconUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2711E5083034DE39981802E1 /* Pods_Beacon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Beacon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		291821991FB8EF50000F3CD1 /* Beacon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Beacon.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -142,6 +144,7 @@
 				2990BB631FBA72A3006CA773 /* Header.h */,
 				291821A01FB8EF50000F3CD1 /* SecondViewController.swift */,
 				291821A21FB8EF50000F3CD1 /* Main.storyboard */,
+				096B4A6C1FCD2E8600FD2DBE /* TableViewController.swift */,
 				291821A51FB8EF50000F3CD1 /* Assets.xcassets */,
 				291821A71FB8EF50000F3CD1 /* LaunchScreen.storyboard */,
 				291821AA1FB8EF50000F3CD1 /* Info.plist */,
@@ -534,6 +537,7 @@
 				291821A11FB8EF50000F3CD1 /* SecondViewController.swift in Sources */,
 				2918219D1FB8EF50000F3CD1 /* AppDelegate.swift in Sources */,
 				2918219F1FB8EF50000F3CD1 /* FirstViewController.swift in Sources */,
+				096B4A6D1FCD2E8600FD2DBE /* TableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

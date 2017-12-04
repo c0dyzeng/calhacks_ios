@@ -23,9 +23,35 @@
                                     <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="rQh-VD-bNi">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="299"/>
                                     </mapView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="De3-tT-9JF">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oLd-Vp-58p">
                                         <rect key="frame" x="0.0" y="299" width="375" height="299"/>
+                                        <subviews>
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="uBM-qC-0oH">
+                                                <rect key="frame" x="-0.5" y="-0.5" width="375" height="299"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <prototypes>
+                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="PNZ-ET-3pw">
+                                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                                        <autoresizingMask key="autoresizingMask"/>
+                                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PNZ-ET-3pw" id="CM8-aZ-bI2">
+                                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                        </tableViewCellContentView>
+                                                    </tableViewCell>
+                                                </prototypes>
+                                                <connections>
+                                                    <outlet property="dataSource" destination="9pv-A4-QxB" id="F88-Xy-iys"/>
+                                                    <outlet property="delegate" destination="9pv-A4-QxB" id="Bgp-5d-DnH"/>
+                                                </connections>
+                                            </tableView>
+                                        </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="uBM-qC-0oH" firstAttribute="height" secondItem="oLd-Vp-58p" secondAttribute="height" id="Bwu-8g-kfv"/>
+                                            <constraint firstItem="uBM-qC-0oH" firstAttribute="centerY" secondItem="oLd-Vp-58p" secondAttribute="centerY" id="E7d-qE-lje"/>
+                                            <constraint firstItem="uBM-qC-0oH" firstAttribute="width" secondItem="oLd-Vp-58p" secondAttribute="width" id="fXY-Qs-D5q"/>
+                                            <constraint firstItem="uBM-qC-0oH" firstAttribute="centerX" secondItem="oLd-Vp-58p" secondAttribute="centerX" id="us0-fd-rkr"/>
+                                        </constraints>
                                     </view>
                                 </subviews>
                             </stackView>
@@ -42,12 +68,42 @@
                     <tabBarItem key="tabBarItem" title="First" image="first" id="acW-dT-cKf"/>
                     <connections>
                         <outlet property="mapView" destination="rQh-VD-bNi" id="0ZN-ak-0NR"/>
-                        <outlet property="tweetListSubView" destination="De3-tT-9JF" id="BiY-bk-As6"/>
+                        <outlet property="tableView" destination="uBM-qC-0oH" id="MFf-ja-92z"/>
+                        <outlet property="tweetListSubView" destination="oLd-Vp-58p" id="cpv-3Z-uc5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="749.60000000000002" y="-320.68965517241384"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="Axu-tS-CSl">
+            <objects>
+                <tableViewController id="jGV-bv-8E7" customClass="TableViewController" customModule="Beacon" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="wRZ-Lx-Sp2">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TweetCell" rowHeight="464" id="l1q-RM-QAE" customClass="TWTRTweetTableViewCell">
+                                <rect key="frame" x="0.0" y="28" width="375" height="464"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="l1q-RM-QAE" id="ts3-Xx-et5">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="463.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="jGV-bv-8E7" id="2JF-eq-Tx8"/>
+                            <outlet property="delegate" destination="jGV-bv-8E7" id="xAI-gq-gsM"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="Item" id="2Kb-Jn-F38"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="N0R-7v-RUL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1549.5999999999999" y="208.24587706146929"/>
         </scene>
         <!--Second-->
         <scene sceneID="wg7-f3-ORb">
