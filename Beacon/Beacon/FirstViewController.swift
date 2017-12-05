@@ -12,7 +12,7 @@ import Alamofire
 import TwitterKit
 
 class FirstViewController: UIViewController, TWTRTweetViewDelegate, UITableViewDataSource, UITableViewDelegate, MKMapViewDelegate {
-
+    
     // table stuff
     
     @IBOutlet weak var tableView: UITableView!
@@ -44,12 +44,6 @@ class FirstViewController: UIViewController, TWTRTweetViewDelegate, UITableViewD
     
     
     func loadTweets() {
-        // Do not trigger another request if one is already in progress.
-//        if self.isLoadingTweets {
-//            return
-//        }
-//        self.isLoadingTweets = true
-        
         findTweetIDs { () in
             // Find the tweets with the tweetIDs
             let client = TWTRAPIClient()
@@ -157,14 +151,6 @@ class FirstViewController: UIViewController, TWTRTweetViewDelegate, UITableViewD
         
         return TWTRTweetTableViewCell.height(for: tweet, style: TWTRTweetViewStyle.compact, width: self.view.bounds.width, showingActions: false)
     }
-
-
-    
-    
-    
-    
-    
-    
     
     // map stuff
     @IBOutlet weak var mapView: MKMapView!
@@ -189,112 +175,24 @@ class FirstViewController: UIViewController, TWTRTweetViewDelegate, UITableViewD
         loadTweets()
         
         // map stuff
-        // hardcode initial location
-        // TODO later: instead access user location, center there
         let initialLoc = CLLocation(latitude: 37.8722, longitude: -122.2596)
         centerMapOnLocation(location: initialLoc)
         
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = CLLocationCoordinate2D(
+        let pinSoda = MKPointAnnotation()
+        pinSoda.coordinate = CLLocationCoordinate2D(
                 latitude: 37.8756,
                 longitude: -122.2588)
-        annotation.title = "Soda Hall"
-        annotation.subtitle = "eecs"
-        mapView.addAnnotation(annotation)
+        pinSoda.title = "Soda Hall"
+        pinSoda.subtitle = "eecs"
+        mapView.addAnnotation(pinSoda)
         
-        // TODO : figure out how to customize pins
-//        let annotationView = MKPinAnnotationView()
-//        annotationView.pinTint
-        print("MAKING REQUEST =========>")
-//        Alamofire.request( "http://localhost:3000/events", parameters: ["lat": 37.8756, "lng":-122.2588, "distance": 1000, "sort": "time", "accessToken": "1861168064194536|QD4ThBLg1lAfv8ZjGfjGd2M9DN0"])
-//            .response { data in
-//                //print(request)
-//                print(data)
-//                //print(error)
-//        }
-//        Alamofire.request("https://httpbin.org/get").responseJSON { response in
-//            debugPrint(response)
-//
-//            if let json = response.result.value {
-//                print("JSON: \(json)")
-//            }
-//        }
-        
-        
-        
-        // nithi hardcoded post
-//        let client = TWTRAPIClient()
-//        let statusesShowEndpoint = "https://api.twitter.com/1.1/search/tweets.json"
-//        let params = ["q": " ", "geocode":"37.8756,-122.2588,.5km", "result_type": "recent"]
-//        var clientError : NSError?
-//
-//        let request = client.urlRequest(withMethod: "GET", url: statusesShowEndpoint, parameters: params, error: &clientError)
-//
-//        client.sendTwitterRequest(request) { (response, data, connectionError) -> Void in
-//            if connectionError != nil {
-//                print("Error: \(connectionError)")
-//            }
-//
-//            do {
-//                let json = try JSONSerialization.jsonObject(with: data!, options: [])
-//                if let dictionary = json as? [String: Any] {
-//                   // print("ARR IS :  \(dictionary)")
-////                    if let statusesArr = dictionary["statuses"] as? [NSArray] {
-////                        statusesArr.forEach { item in
-////                            print("ITEM IS \(item)")
-////                        }
-////                    }
-//
-//                    if let array = dictionary["statuses"] as? [Any] {
-//                        // iterate through tweet objects in array to get their text, created at, user, screen name
-//                        for object in array {
-//                            if let obj = object as? [String:Any] {
-//                                print("TEXT IS \(obj["text"]!)")
-//                                print("CREATED AT IS \(obj["created_at"]!)")
-//                                if let user = obj["user"]! as? [String:Any] {
-//                                    print("USER IS \(user["screen_name"]!)")
-//                                }
-////                                if let entities = obj["entities"]! as? [String:Any] {
-////                                    if (entities != nil) {
-////                                        if let media = entities["media"]! as? [String:Any] {
-////                                            print("URL IS \(media["expanded_url"]!)")
-////
-////                                        }
-////                                    }
-////
-////                                }
-//
-//                            }
-//                        }
-//                         print("ARR IS :  \(array)")
-//
-//                    }
-//
-//                    //TODO: delete this hardcoded thing and make it a list of tweets
-//                    let tweetView = TWTRTweetView()
-//                    client.loadTweet(withID: "933775988894208000") { (tweet, error) in
-//                        if let t = tweet {
-//                            tweetView.configure(with: t)
-//                            tweetView.bounds = self.tweetListSubView.bounds
-//                            tweetView.center = self.tweetListSubView.center
-//                            self.view.addSubview(tweetView)
-//                        } else {
-//                            print("Failed to load Tweet: \(error?.localizedDescription)")
-//                        }
-//                    }
-//
-//
-////                    for (key, value) in dictionary {
-////                        print("STATUS IS : \(key)  \(value)")
-////
-////                    }
-//                }
-//                //print("json: \(json)")
-//            } catch let jsonError as NSError {
-//                print("json error: \(jsonError.localizedDescription)")
-//            }
-//        }
-//
+        let pinFollow = MKPointAnnotation()
+        pinFollow.coordinate = CLLocationCoordinate2D(
+            latitude: 16.70555,
+            longitude: -62.21729)
+        pinFollow.title = "you!"
+        pinFollow.subtitle = "follow me on instagram"
+        mapView.addAnnotation(pinFollow)
     }
     
     func centerMapOnLocation(location: CLLocation) {
@@ -318,31 +216,24 @@ class FirstViewController: UIViewController, TWTRTweetViewDelegate, UITableViewD
             mapView.visibleMapRect.origin.y + mapView.visibleMapRect.size.height)
         currRadiusMeters = MKMetersBetweenMapPoints(mpTopRight, mpBottomRight) / 2
         // redraw circle
-//        self.mapView.removeOverlays(self.mapView.overlays)
+        self.mapView.removeOverlays(self.mapView.overlays)
         addRadiusCircle()
-//        refreshInvoked()
+        refreshInvoked()
     }
     
     func addRadiusCircle(){
-//        self.mapView.delegate = self
-        let circle = MKCircle(center: currCenter, radius: currRadiusMeters / MKMetersPerMapPointAtLatitude(currCenter.latitude))
+        self.mapView.delegate = self
+        let circle = MKCircle(center: currCenter, radius: currRadiusMeters)
         self.mapView.add(circle)
-        print("ADDING RADIUS CIRCLE")
     }
     
-    func mapView(_ mapView: MKMapView!, rendererForOverlay overlay: MKOverlay!) -> MKOverlayRenderer! {
-        print("OUTSIDE IF OVERLAY CIRCLE")
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if overlay.isKind(of: MKCircle.self) {
-            print("RENDERING CIRCLE")
-            let circle = MKCircleRenderer(overlay: overlay)
-            circle.strokeColor = UIColor.red
-            circle.fillColor = UIColor(red: 255, green: 0, blue: 0, alpha: 0.1)
-            circle.lineWidth = 1
-            return circle
-        } else {
-            return nil
+            let view = MKCircleRenderer(overlay: overlay)
+            view.fillColor = UIColor.blue.withAlphaComponent(0.1)
+            return view
         }
+        return MKOverlayRenderer(overlay: overlay)
     }
-    
 }
 
