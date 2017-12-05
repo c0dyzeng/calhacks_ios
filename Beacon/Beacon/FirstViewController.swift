@@ -11,7 +11,7 @@ import MapKit
 import Alamofire
 import TwitterKit
 
-class FirstViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, TWTRTweetViewDelegate {
+class FirstViewController: UIViewController, TWTRTweetViewDelegate, UITableViewDataSource, UITableViewDelegate, MKMapViewDelegate {
 
     // table stuff
     
@@ -45,23 +45,21 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     func loadTweets() {
         // Do not trigger another request if one is already in progress.
-        if self.isLoadingTweets {
-            return
-        }
-        self.isLoadingTweets = true
+//        if self.isLoadingTweets {
+//            return
+//        }
+//        self.isLoadingTweets = true
         
         findTweetIDs { () in
             // Find the tweets with the tweetIDs
             let client = TWTRAPIClient()
-            print("TWEET IDS ARE: \(self.tweetIDs)")
-            
             client.loadTweets(withIDs: self.tweetIDs) { (twttrs, error) -> Void in
                 
                 
                 // If there are tweets do something magical
                 if ((twttrs) != nil) {
-                    print("TWEETS ARE: \(twttrs)")
                     // Loop through tweets and do something
+                    self.tweets = []
                     for i in twttrs! {
                         // Append the Tweet to the Tweets to display in the table view.
                         self.tweets.append(i as TWTRTweet)
@@ -71,53 +69,28 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
                 }
             }
         }
-        
-        //        // Find the tweets with the tweetIDs
-        //        let client = TWTRAPIClient()
-        //        print("TWEET IDS ARE: \(self.tweetIDs)")
-        //
-        //        client.loadTweets(withIDs: self.tweetIDs) { (twttrs, error) -> Void in
-        //            print("TWEETS ARE: \(twttrs)")
-        //
-        //            // If there are tweets do something magical
-        //            if ((twttrs) != nil) {
-        //
-        //                // Loop through tweets and do something
-        //                for i in twttrs! {
-        //                    // Append the Tweet to the Tweets to display in the table view.
-        //                    self.tweets.append(i as TWTRTweet)
-        //                }
-        //            } else {
-        //                print(error as Any)
-        //            }
-        //        }
-        
     }
     
     func findTweetIDs(completion: @escaping () -> ()) {
         // set tweetIds to find
         let client = TWTRAPIClient()
         let statusesShowEndpoint = "https://api.twitter.com/1.1/search/tweets.json"
-        let params = ["q": " ", "geocode":"37.8756,-122.2588,.5km", "result_type": "recent"]
-        //        var tweetIDs: [Any] = [];
+        let lat = String(currCenter.latitude)
+        let lon = String(currCenter.longitude)
+        let rad = String(currRadiusMeters/1000) + "km"
+        let params = ["q": " ", "geocode":lat + "," + lon + "," + rad, "result_type": "recent"]
         var clientError : NSError?
         
         let request = client.urlRequest(withMethod: "GET", url: statusesShowEndpoint, parameters: params, error: &clientError)
         
         client.sendTwitterRequest(request) { (response, data, connectionError) -> Void in
             if connectionError != nil {
-                print("Error: \(connectionError)")
+                print("Error: \(String(describing: connectionError))")
             }
             
             do {
                 let json = try JSONSerialization.jsonObject(with: data!, options: [])
                 if let dictionary = json as? [String: Any] {
-                    // print("ARR IS :  \(dictionary)")
-                    //                    if let statusesArr = dictionary["statuses"] as? [NSArray] {
-                    //                        statusesArr.forEach { item in
-                    //                            print("ITEM IS \(item)")
-                    //                        }
-                    //                    }
                     
                     if let array = dictionary["statuses"] as? [Any] {
                         // iterate through tweet objects in array to get their text, created at, user, screen name
@@ -127,7 +100,6 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
                                 self.tweetIDs.append(String(describing: obj["id"]!))
                             }
                         }
-                        print("ARR IS :  \(self.tweetIDs)")
                         
                     }
                 }
@@ -137,12 +109,12 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
             }
             
         }
-        //return tweetIDs
     }
     
     func refreshInvoked() {
         // Trigger a load for the most recent Tweets.
         loadTweets()
+        tableView.reloadData()
     }
     
     // MARK: TWTRTweetViewDelegate
@@ -197,6 +169,9 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     // map stuff
     @IBOutlet weak var mapView: MKMapView!
     let regionRadius: CLLocationDistance = 1000
+    
+    var currRadiusMeters: Double = 500.0
+    var currCenter: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 37.8756, longitude: -122.2588)
     
     @IBOutlet weak var tweetListSubView: UIView!
     override func viewDidLoad() {
@@ -331,11 +306,43 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         mapView.setRegion(coordinateRegion, animated: true)
     }
 
-//    override func didReceiveMemoryWarning() {
-//        super.didReceiveMemoryWarning()
-//        // Dispose of any resources that can be recreated.
-//    }
-
-
+    // when map region changes, update currCenter currRadiusMeters
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        // update global vars
+        currCenter = mapView.centerCoordinate
+        let mpTopRight = MKMapPointMake(
+            mapView.visibleMapRect.origin.x + mapView.visibleMapRect.size.width,
+            mapView.visibleMapRect.origin.y)
+        let mpBottomRight = MKMapPointMake(
+            mapView.visibleMapRect.origin.x + mapView.visibleMapRect.size.width,
+            mapView.visibleMapRect.origin.y + mapView.visibleMapRect.size.height)
+        currRadiusMeters = MKMetersBetweenMapPoints(mpTopRight, mpBottomRight) / 2
+        // redraw circle
+//        self.mapView.removeOverlays(self.mapView.overlays)
+        addRadiusCircle()
+//        refreshInvoked()
+    }
+    
+    func addRadiusCircle(){
+//        self.mapView.delegate = self
+        let circle = MKCircle(center: currCenter, radius: currRadiusMeters / MKMetersPerMapPointAtLatitude(currCenter.latitude))
+        self.mapView.add(circle)
+        print("ADDING RADIUS CIRCLE")
+    }
+    
+    func mapView(_ mapView: MKMapView!, rendererForOverlay overlay: MKOverlay!) -> MKOverlayRenderer! {
+        print("OUTSIDE IF OVERLAY CIRCLE")
+        if overlay.isKind(of: MKCircle.self) {
+            print("RENDERING CIRCLE")
+            let circle = MKCircleRenderer(overlay: overlay)
+            circle.strokeColor = UIColor.red
+            circle.fillColor = UIColor(red: 255, green: 0, blue: 0, alpha: 0.1)
+            circle.lineWidth = 1
+            return circle
+        } else {
+            return nil
+        }
+    }
+    
 }
 
