@@ -8,7 +8,6 @@
 
 import UIKit
 import MapKit
-import Alamofire
 import TwitterKit
 
 class FirstViewController: UIViewController, TWTRTweetViewDelegate, UITableViewDataSource, UITableViewDelegate, MKMapViewDelegate {
